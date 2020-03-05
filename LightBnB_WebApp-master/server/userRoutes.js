@@ -25,11 +25,7 @@ module.exports = function(router, database) {
    */
   const login = function(email, password) {
     return database.getUserWithEmail(email).then(user => {
-      console.log("hey", user);
-      console.log(password);
-      console.log(user.password);
       if (bcrypt.compareSync(password, user.password)) {
-        console.log("match");
         return user;
       }
       return null;
@@ -41,7 +37,6 @@ module.exports = function(router, database) {
     const { email, password } = req.body;
     login(email, password)
       .then(user => {
-        console.log("HEY", user);
         if (!user) {
           res.send({ error: "error" });
           return;
